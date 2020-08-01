@@ -11,4 +11,10 @@ class Area extends Model
     public function city(){
         return $this->belongsTo(City::class);
     }
+
+    public function centers()
+    {
+         return $this->hasMany(Center::class);
+    }
+
 }

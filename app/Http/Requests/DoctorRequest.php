@@ -27,7 +27,7 @@ class DoctorRequest extends FormRequest
             'name'                  => 'required|max:255' ,
             'email'                 => 'required|max:255|' ,
             'password'              => 'required',
-            'gender'                => 'required|in:male,female' ,
+            'gender'                => 'required' ,
             'title'              => 'required' ,
             'about'                 => 'required' ,
             'specialization_id'     => 'required|exists:specializations,id' ,
@@ -46,7 +46,7 @@ class DoctorRequest extends FormRequest
         'name.max' =>'اسم لايزيد عن 255',
         'email.required' => 'البريد الالكترونى مطلوب',
         'email.max' =>'الاميل لايزيد عن 255',
-        
+
         'password.required' => 'كلمه المرور مطلوبه',
         'gender.required' =>'النوع مطلوب',
         'title.required' => 'اللقب مطلوب',

@@ -11,4 +11,10 @@ class City extends Model
     public function areas(){
        return $this->hasMany(Area::class);
     }
+    public function centers()
+    {
+         return $this->hasMany(Center::class);
+    }
+
+
 }

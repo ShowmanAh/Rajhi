@@ -120,21 +120,20 @@
                                     {!!Form::label('specialization_id' , 'التخصص الرئيسى ')!!}
                                     @inject('specialization' , 'App\Models\Specialization')
 
-                {!!Form::select('specialization_id' , $specialization->all()->pluck('name' , 'id')->toArray() , null , ['class' => ' form-control ' ,    'placeholder' => "اختر تخصص رئيسى " ] )!!}
+                {!!Form::select('specialization_id' , $specialization->all()->pluck('name' , 'id')->toArray() , null , ['class' => ' form-control ' ,    'placeholder' => "اختر تخصص رئيسى ", 'id' => 'testest' ] )!!}
                 @error('specialization_id')
                 <span class="text-danger">{{$message}}</span>
 
                 @enderror
                                 </div>
                                 <div class="form-group col-6">
-                                    {!!Form::label('subspecialization' , 'التخصص الفرعى ')!!}
-                                    @inject('subspecialization' , ' App\Models\Subspecialization')
+                                    {!!Form::label('subspecializations' , 'التخصصات الفرعية' )!!}
+                                    <div class="select2-purple col-10" style = "padding:10;">
+                                        {!!Form::select('subspecializations[]' , []  , old('specializations') ,
+                                         ['class' => 'select2 form-control ' ,  'id' => 'subspecializations-list', 'multiple' => 'multiple' , 'data-placeholder' => "اختر تخصص فرعي" , 'data-dropdown-css-class' => "select2-purple" , 'style' => 'width: 100%;' ])!!}
+                                    </div>
 
-                {!!Form::select('subspecialization[]' , $subspecialization->all()->pluck('name' , 'id')->toArray() , null ,  ['class' => 'select2 form-control ' ,   'multiple' => 'multiple' , 'data-placeholder' => "اختر   تخصص فرعى" , 'data-dropdown-css-class' => "select2-purple" , 'style' => 'width: 100%;'] )!!}
-                @error('subspecialization')
-                <span class="text-danger">{{$message}}</span>
 
-                @enderror
                                 </div>
                             </div>
 
@@ -188,32 +187,49 @@
 </div>
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-  $(document).ready(function(){
- $('#specializations_list').on('change', function(){
-     console.log('xx');
-     let id = $(this).val();
-     $('#subspecialization_list').empty();
-     $('#subspecialization_list').append('<option value="0" disabled selected>proccessing ...</option>');
-     $.ajax({
-        method : 'get' ,
-        url : 'getSub/' + id,
-        success: function(response){
-            var response = JSON.parse(response);
-           // console.log(response);
-            $('#subspecialization_list').empty();
-            $("#subspecialization_list").append('<option value="0" disabled selected>select sub ...</option>');
-            response.forEach(element => {
-                $("#subspecialization_list").append('<option value="${element['id']}" >${element['name']} ...</option>');
 
-            });
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script  type="text/javascript">
+    $(document).ready(function(){
+        console.log("SDF");
+    });
+
+    $('#testest').change(function(){
+
+        var specialization = $(this).val();
+        alert(specialization);
+        if(specialization)
+        {
+            $.ajax({
+
+                method : 'get' ,
+                url : "{{url(route('getSubspecializations'))}}" ,
+                data : {specialization : specialization} ,
+                success : function(data)
+                {
+                    if(data.status == 1)
+                    {
+                        $("#subspecializations-list").empty();
+                        $.each(data.data , function(index , subspecialization)
+                        {
+                            $("#subspecializations-list").append("<option value = '" + subspecialization.id + "'>"
+                            + subspecialization.name  + "</option>")
+                        });
+                    }
+                    else
+                    {
+                        $("#subspecializations-list").empty();
+                    }
+                }
+
+            })
         }
-     });
 
- });
-  });
+    });
+
+
 </script>
-
-
+@stop

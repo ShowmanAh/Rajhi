@@ -100,6 +100,17 @@ Route::group(['prefix' => 'services'], function () {
     Route::get('/destroy/{id}', 'AreaController@destroy')->name('admin.areas.destroy');
  });
  ### end areas route ###
+ ### begin centers route ###
+ Route::group(['prefix' => 'centers'], function () {
+    Route::get('/', 'CentersController@index')->name('admin.centers');
+    Route::get('/create', 'CentersController@create')->name('admin.centers.create');
+    Route::post('/store', 'CentersController@store')->name('admin.centers.store');
+    Route::get('/edit/{id}', 'CentersController@edit')->name('admin.centers.edit');
+    Route::post('/update/{id}', 'CentersController@update')->name('admin.centers.update');
+    Route::get('/destroy/{id}', 'CentersController@destroy')->name('admin.centers.destroy');
+    Route::get('/{id}','CentersController@show' )->name('admin.centers.show');
+ });
+ ### end centers route ###
 });
 
 ### guest admin route ###
@@ -111,4 +122,9 @@ Route::group(['namespace' => 'Dashboard', 'middleware'=> 'guest:admin'], functio
     ## end admin login route ###
  });
  Route::get('getSubspecializations' , 'Dashboard\DoctorController@getSubspecializations')->name('getSubspecializations');
- Route::get('getSub/{id}' , 'Dashboard\DoctorController@getSub')->name('getSub');
+ Route::get('doctors/getSub/{id}' , 'Dashboard\DoctorController@getSub')->name('getSub');
+ Route::post('/subchildren', [
+    'as'   => 'children.categories',
+    'uses' => 'Dashboard\DoctorController@childrenCategory',
+  ]);
+  Route::get('/category-dropdown' , 'Dashboard\DoctorController@categoryDropDownData')->name('getDropdown');

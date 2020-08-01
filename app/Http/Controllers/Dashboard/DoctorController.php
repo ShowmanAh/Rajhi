@@ -2,41 +2,34 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use DB;
 use App\Models\Doctor;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Models\Specialization;
 use App\Models\InsuranceCompany;
 use App\Models\Subspecialization;
-use DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DoctorRequest;
+use Symfony\Component\Console\Input\Input;
 
 class DoctorController extends Controller
 {
     private $view = 'dashboard.doctors.';
    public function index(){
-
-   // $specializations = Specialization::select('id','name')->with('subspecializations')->get();
-    //$sub = Subspecialization::find(1)->specialization;
     $doctors = Doctor::select('id','name','image','gender','specialization_id','title')->paginate(paginate_number);
      return view($this->view.'index', compact('doctors'));
    }
 public function create(){
-    /*
+   // $specializations = Specialization::all()->pluck('name', 'id');
+
     $specializations = Specialization::select('id','name')->get();
-    //$sub = Subspecialization::find(1)->specialization;
-    $subspecializations = Subspecialization::select('id','name')->get();
-    $insurance_companies = InsuranceCompany::select('id','name')->get();
-    $services = Service::select('id','name')->get();
-    */
-   // return view($this->view.'create', compact('specializations', 'subspecializations', 'insurance_companies', 'services'));
-   return view($this->view.'create');
+    $insurance_companies = InsuranceCompany::select('id', 'name')->get();
+
+     return view($this->view.'createe', compact('specializations', 'insurance_companies'));
 }
 public function store(DoctorRequest $request){
-//dd($request->services);
-//$services = explode(',',$request->services);
-//dd($services);
+    return $request;
     try {
        //dd($request->all());
     $filepath = "";
@@ -83,7 +76,8 @@ public function show($id){
         }
        return view($this->view.'show', compact('doctor'));
     } catch (\Exception $ex) {
-        return redirect()->route('admin.doctors')->with(['error'=> 'اعد المحاوله مجددا  ']);
+        return redirect()->route('admin.doctors')->with(['error'=> 'اareaarearea
+        عد المحاوله مجددا  ']);
     }
 }
 
@@ -120,7 +114,7 @@ public function update(DoctorRequest $request, $id){
     $doctor->update($request_data);
     $doctor->services()->delete();
     if($request->has('services')){
-        $services = explode(',', $request->service);
+        $services = explode(',', $request->services);
         foreach ($services as $service) {
             $doctor->services()->create(['name'=>$service]);
         }
@@ -159,7 +153,7 @@ public function destroy($id){
 
 public function getSubspecializations(Request $request)
 {
-   // dd('x');
+
     if ($request->has('specialization')) {
         $specialization = Specialization::find($request->specialization);
 
@@ -171,8 +165,18 @@ public function getSubspecializations(Request $request)
     }
 }
 public function getSub($id){
-    $json = json_encode(DB::table('subspecializations')->where('specialization_id', $id)->get());
-    //return $json;
-   return $json;
+    $sub = Subspecialization::where('specialization_id', $id)->pluck('name', 'id');
+   // return $sub;
+  // return json_encode($sub);
+  return responseJson(1, 'success', $sub);
+}
+
+public function categoryDropDownData()
+{
+    $category_id = Input::get('specialization_id');
+    $subcategories = Specialization::find($category_id)->subspecializations;
+
+    return Response::json($subcategories);
+
 }
 }

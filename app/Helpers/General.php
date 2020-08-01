@@ -14,4 +14,15 @@ function uploadImage($folder, $image)
     $path = 'images/' . $folder . '/' . $filename;
     return $path;
 }
+function responseJson($status, $message, $data = null)
+{
+    $response = [
+        'status' => $status,
+        'message' => $message,
+        'data' => $data,
+    ];
+
+    return response()->json($response , 200);
+}
+
 ?>
