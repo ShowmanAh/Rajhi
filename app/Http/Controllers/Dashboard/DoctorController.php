@@ -62,7 +62,7 @@ public function store(DoctorRequest $request){
    DB::commit();
    return redirect()->route('admin.doctors')->with(['success'=> 'تم الاضافه بنجاح']);
     } catch (\Exception $ex) {
-        return $ex;
+       // return $ex;
         DB::rollback();
         return redirect()->route('admin.doctors')->with(['error'=> 'اعد المحاوله مجددا  ']);
     }

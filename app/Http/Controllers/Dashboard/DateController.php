@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
-
+use DB;
 use App\Models\Date;
 use App\Models\Clinic;
 use App\Models\Doctor;
@@ -31,11 +31,31 @@ class DateController extends Controller
         return view($this->view.'create', compact('doctors', 'clinics'));
     }
     public function store(DateRequest $request){
+    try {
+           //return $request;
      $request_data = $request->except(['_token']);
-    $this->model->create($request_data);
-   // return 0;
-    return redirect()->route('admin.dates');
+     if (count($request->from) != count($request->to)) {
+        return back()->with('error', 'error ocured!');
+     }
+     DB::begintransaction();
+     $date = $this->model->create($request_data);
+    for ($i=0; $i < count($request->from); $i++) {
+       $date->times()->create([
+           'from'=> $request->from[$i],
+           'to' =>$request->to[$i]
+       ]);
     }
+   // return 0;
+   DB::commit();
+
+    return redirect()->route('admin.dates');
+    } catch (Exception $ex) {
+        DB::rollback();
+        return redirect()->route('admin.dates');
+    }
+
+    }
+
     public function edit($id){
 
         try {
@@ -54,16 +74,32 @@ class DateController extends Controller
     }
   public function update(DateRequest $request, $id){
       try {
-        $request_data = $request->except(['_token']);
+          $date = Date::find($id);
+        $request_data = $request->except(['_token', 'from', 'to']);
+        if (count($request->from) != count($request->to)) {
+            return back()->with('error', 'error ocured!');
+        }
+        DB::begintransaction();
         $this->model->update($request_data, $id);
+         $date->times()->delete();
+        for ($i=0; $i < count($request->from); $i++) {
+           $date->times()->create([
+               'from' => $request->from[$i],
+               'to' =>  $request->to[$i]
+           ]);
+        }
+        DB::commit();
         return redirect()->route('admin.dates');
       } catch (Exception $ex) {
          // return $ex;
+         DB::rollback();
         return redirect()->route('admin.dates');
       }
   }
   public function destroy($id){
     try {
+        $date = Date::find($id);
+        $date->times()->delete();
         $this->model->delete($id);
         return redirect()->route('admin.dates');
     } catch (Exception $ex) {

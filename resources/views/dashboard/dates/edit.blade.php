@@ -103,6 +103,46 @@
                                                 </div>
 
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.from') </label>
+                                                        <select name = "from[]" class = "form-control"     style = "width: 100%;">
+                                                            @for ($i = 0; $i <= 23; $i++)
+                                                                {{$res = $i < 10 ? '0' . $i : $i  }}
+                                                                <option value = "{{ $res . ':00' }}"  {{ $date->times()->first() && $date->times()->first()->from ==  date("h:i a" , strtotime($res . ':00'))  ? 'selected' : ''}} >{{ date("h:i a" , strtotime($res . ':00'))}}</option>
+                                                            @endfor
+                                                        </select>
+                                                        @error('from')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.to') </label>
+                                                        <select name = "to[]" class = " form-control"   style = "width: 100%;">
+                                                            @for ($i = 0; $i <= 23; $i++)
+                                                                {{$res = $i < 10 ? '0' . $i : $i  }}
+                                                                <option value = "{{ $res . ':00' }}"  {{ $date->times()->first() && $date->times()->first()->to ==  date("h:i a" , strtotime($res . ':00'))  ? 'selected' : ''}}   ? 'selected' : ''}} >{{ date("h:i a" , strtotime($res . ':00'))}}</option>
+                                                            @endfor
+                                                        </select>
+                                                        @error('to')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
 
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="la la-check-square-o"></i> @lang('site.save')

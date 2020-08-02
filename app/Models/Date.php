@@ -8,6 +8,7 @@ class Date extends Model
 {
     protected $table = 'dates';
     protected $fillable = ['days', 'doctor_id', 'clinic_id'];
+    protected $with = ['times'];
 
     public function doctors()
     {
@@ -17,6 +18,10 @@ class Date extends Model
     public function clinics()
     {
         return $this->belongsTo(Clinic::class, 'clinic_id');
+    }
+    public function times()
+    {
+        return $this->hasMany(Time::class, 'date_id');
     }
 
     public function setDaysAttribute($arr){

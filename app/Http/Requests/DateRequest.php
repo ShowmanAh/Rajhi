@@ -28,13 +28,16 @@ class DateRequest extends FormRequest
             'clinic_id' => 'required|exists:clinics,id' ,
            'days' => 'required|array',
            'days.*'    => 'in:Saturday,Sunday,Monday,Tuesday,Wednesday,Thursday,Friday' ,
+           'from' => 'required|array',
+           'to' => 'required|array'
         ];
     }
     public function messages(){
       return [
         'doctor_id.required' => 'الدكتور مطلوب',
         'clinic_id.required' => 'العياده مطلوبه',
-
+         'from.required' => 'الوقت مطلوب',
+         'to.required' => 'الوقت مطلوب',
         'days.required' => 'الايام مطلوبه',
       ];
     }
