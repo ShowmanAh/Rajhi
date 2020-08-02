@@ -78,11 +78,11 @@
                                                         {!! Form::label('gender', 'النوع: *') !!}
                                                         <br>
                                                         <label class="radio-inline">
-                                                            {!! Form::radio('gender', "Male", null,['class'=> 'form-control']) !!} Male
+                                                            {!! Form::radio('gender', "Male", null,['class'=> 'form-control']) !!} ذكر
                                                         </label>
                                                           <br>
                                                         <label class="radio-inline">
-                                                            {!! Form::radio('gender', "Female", null, ['class'=> 'form-control']) !!} Female
+                                                            {!! Form::radio('gender', "Female", null, ['class'=> 'form-control']) !!} انثى
                                                         </label>
                                                         </label>  @error('gender')
                                                         <span class="text-danger">{{ $message}} </span>
@@ -116,7 +116,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="projectinput1">   البريد الالكترونى </label>
-                                                       <input type="email" name="email" placeholder="ادخل البريد الالكترونى" value="{{old('email')}}">
+                                                       <input type="email" name="email" placeholder="ادخل البريد الالكترونى" value="{{old('email')}}" class="form-control">
                                                         @error('specialization_id')
                                                         <span class="text-danger">{{ $message}} </span>
                                                         @enderror
@@ -198,9 +198,13 @@
 
 
                                                 <div class="col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style=" display: inline-block;
+                                                    vertical-align: top;
+                                                    overflow: hidden;
+                                                    border: solid grey 1px;">
                                                         <label for="projectinput1"> شركات التأمين  </label>
-                                                        <select name="insurance_companies[]" id="insurance_companies" class="form-control" multiple style="width: 100%;">
+                                                        <select name="insurance_companies[]" id="insurance_companies" class="form-control" multiple style="width: 100%; padding: 10px;
+                                                        overflow-y: auto;">
                                                             <option value="">
                                                                  شركات التأمين
                                                             </option>

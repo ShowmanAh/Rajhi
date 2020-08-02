@@ -163,6 +163,41 @@
 
                                             </div>
 
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">   الاحداثى السينى </label>
+                                                        <input type="number" value="{{ old('latitude')}}" id="latitude"
+                                                               class="form-control"
+
+                                                               name="latitude" step="0.00000001">
+                                                        @error('latitude')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">   الاحداثى الصادى </label>
+                                                        <input type="number" value="{{ old('longitude')}}" id="longitude"
+                                                               class="form-control"
+
+                                                               name="longitude" step="0.00000001">
+                                                        @error('longitude')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
                                   <div class="row">
                                       <div class="col-md-8">
                                       <div class="form-group">

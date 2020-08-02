@@ -29,9 +29,11 @@ public function create(){
      return view($this->view.'createe', compact('specializations', 'insurance_companies'));
 }
 public function store(DoctorRequest $request){
-    return $request;
+   // dd('hh');
+  //  return $request;
+  //return 0;
     try {
-       //dd($request->all());
+       dd($request->all());
     $filepath = "";
     $request_data = $request->except(['password','image','services','insurance_companies', 'subspecializations']);
     $request_data['password']= bcrypt($request->password);
@@ -60,6 +62,7 @@ public function store(DoctorRequest $request){
    DB::commit();
    return redirect()->route('admin.doctors')->with(['success'=> 'تم الاضافه بنجاح']);
     } catch (\Exception $ex) {
+        return $ex;
         DB::rollback();
         return redirect()->route('admin.doctors')->with(['error'=> 'اعد المحاوله مجددا  ']);
     }
@@ -171,12 +174,5 @@ public function getSub($id){
   return responseJson(1, 'success', $sub);
 }
 
-public function categoryDropDownData()
-{
-    $category_id = Input::get('specialization_id');
-    $subcategories = Specialization::find($category_id)->subspecializations;
 
-    return Response::json($subcategories);
-
-}
 }

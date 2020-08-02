@@ -24,6 +24,10 @@ class Doctor extends Model
    {
        return $this->belongsToMany(Subspecialization::class);
    }
+   public function dates()
+   {
+       return $this->hasMany(Date::class, 'doctor_id');
+   }
    public function getgender(){
        return $this->gender;
    }

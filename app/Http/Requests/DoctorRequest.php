@@ -33,10 +33,10 @@ class DoctorRequest extends FormRequest
             'specialization_id'     => 'required|exists:specializations,id' ,
             'image'                 => 'required|image|mimes:jpg,jpeg,png,gif' ,
             'services'              => 'required' ,
-            'insurance_companies'   =>  ' array' ,
+            'insurance_companies'   =>  'array' ,
             'insurance_companies.*' =>     'required|exists:insurance_companies,id' ,
-            'subspecialization*'    => 'array',
-            'subspecialization'      => 'exists:subspecializations,id'
+           // 'subspecialization*'    => 'array',
+           // 'subspecialization'      => 'exists:subspecializations,id'
         ];
 
     }
@@ -54,7 +54,7 @@ class DoctorRequest extends FormRequest
         'specialization_id.required' => 'القسم الرئيسى مطلوب',
         'image.required' =>'الصوره مطلوبه',
         'insurance_companies.required' =>'شركات التامين مطلوبه',
-        'subspecialization.required' =>'الاقسام الفرعيه مطلوبه',
+       // 'subspecialization.required' =>'الاقسام الفرعيه مطلوبه',
        ];
     }
 }

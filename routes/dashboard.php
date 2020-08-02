@@ -111,6 +111,28 @@ Route::group(['prefix' => 'services'], function () {
     Route::get('/{id}','CentersController@show' )->name('admin.centers.show');
  });
  ### end centers route ###
+  ### begin clinics route ###
+  Route::group(['prefix' => 'clinics'], function () {
+    Route::get('/', 'ClinicController@index')->name('admin.clinics');
+    Route::get('/create', 'ClinicController@create')->name('admin.clinics.create');
+    Route::post('/store', 'ClinicController@store')->name('admin.clinics.store');
+    Route::get('/edit/{id}', 'ClinicController@edit')->name('admin.clinics.edit');
+    Route::post('/update/{id}', 'ClinicController@update')->name('admin.clinics.update');
+    Route::get('/destroy/{id}', 'ClinicController@destroy')->name('admin.clinics.destroy');
+    Route::get('/{id}','ClinicController@show' )->name('admin.clinics.show');
+ });
+ ### end clinics route ##
+  ### begin dates route ###
+  Route::group(['prefix' => 'dates'], function () {
+    Route::get('/', 'DateController@index')->name('admin.dates');
+    Route::get('/create', 'DateController@create')->name('admin.dates.create');
+    Route::post('/store', 'DateController@store')->name('admin.dates.store');
+    Route::get('/edit/{id}', 'DateController@edit')->name('admin.dates.edit');
+    Route::post('/update/{id}', 'DateController@update')->name('admin.dates.update');
+    Route::get('/destroy/{id}', 'DateController@destroy')->name('admin.dates.destroy');
+    Route::get('/{id}','DateController@show' )->name('admin.dates.show');
+ });
+ ### end dates route ##
 });
 
 ### guest admin route ###
