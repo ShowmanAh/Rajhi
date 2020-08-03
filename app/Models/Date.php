@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\DateObserver;
 use Illuminate\Database\Eloquent\Model;
 
 class Date extends Model
@@ -9,7 +10,10 @@ class Date extends Model
     protected $table = 'dates';
     protected $fillable = ['days', 'doctor_id', 'clinic_id'];
     protected $with = ['times'];
-
+    protected static function boot(){
+        parent::boot();
+        Date::observe(DateObserver::class);
+    }
     public function doctors()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id');

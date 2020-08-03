@@ -98,8 +98,8 @@ class DateController extends Controller
   }
   public function destroy($id){
     try {
-        $date = Date::find($id);
-        $date->times()->delete();
+       // $date = Date::find($id);
+        //$date->times()->delete();
         $this->model->delete($id);
         return redirect()->route('admin.dates');
     } catch (Exception $ex) {

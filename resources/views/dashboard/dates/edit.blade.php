@@ -145,7 +145,7 @@
                                             </div>
 
                                             <button type="submit" class="btn btn-primary">
-                                                <i class="la la-check-square-o"></i> @lang('site.save')
+                                                <i class="la la-check-square-o"></i> @lang('site.edit')
                                             </button>
                                         </div>
                                     </form>

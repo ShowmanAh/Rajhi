@@ -55,6 +55,7 @@
 
                                                 <th> @lang('site.doctor')</th>
                                                 <th> @lang('site.clinic')</th>
+                                                <th>@lang('site.date')</th>
                                                 <th>@lang('site.actions')</th>
                                             </tr>
                                             </thead>
@@ -74,6 +75,11 @@
                                                     </td>
                                                   <td>{{ $date->doctors->name}}</td>
                                                   <td>{{ $date->clinics->name}}</td>
+                                                  <td>
+                                                      @foreach ($date->times as $time)
+                                                         {{ $time->from . 'الى' . $time->to}} <br>
+                                                      @endforeach
+                                                  </td>
                                                   <td>
                                                       <a href="{{ route('admin.dates.edit', $date->id)}}"
                                                         class="btn btn-outline-primary btn-sm box-shadow-3 mr-1 mb-1">@lang('site.edit')</a>
