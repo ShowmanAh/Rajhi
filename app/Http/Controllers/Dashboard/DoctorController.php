@@ -33,7 +33,7 @@ public function store(DoctorRequest $request){
   //  return $request;
   //return 0;
     try {
-       dd($request->all());
+      // dd($request->all());
     $filepath = "";
     $request_data = $request->except(['password','image','services','insurance_companies', 'subspecializations']);
     $request_data['password']= bcrypt($request->password);

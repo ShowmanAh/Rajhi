@@ -22,6 +22,10 @@ class Center extends Model
    {
        return $this->belongsTo(Area::class, 'area_id');
    }
+   public function clinics()
+   {
+       return $this->hasMany(Clinic::class, 'center_id');
+   }
 
 
 }

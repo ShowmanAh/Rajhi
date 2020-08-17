@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\City;
+use App\Models\Center;
 use App\Models\Clinic;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use App\Http\Controllers\Controller;
@@ -17,12 +20,15 @@ class ClinicController extends Controller
     }
     public function index(){
         $clinics = $this->model->all();
-        //return $clinics;
+      // return $clinics;
         return view($this->view.'index', compact('clinics'));
-      // return Clinic::selection()->get();
+
     }
     public function create(){
-        return view($this->view.'create');
+        $centers = Center::select('id','name')->get();
+        $cities = City::select('id','name')->get();
+        $doctors = Doctor::select('id','name')->get();
+        return view($this->view.'create', compact('centers', 'cities', 'doctors'));
     }
     public function store(ClinicRequest $request){
      // return $request;

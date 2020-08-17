@@ -28,6 +28,12 @@ class Doctor extends Model
    {
        return $this->hasMany(Date::class, 'doctor_id');
    }
+
+   public function clinics()
+   {
+       return $this->hasMany(Clinic::class, 'doctor_id');
+   }
+
    public function getgender(){
        return $this->gender;
    }

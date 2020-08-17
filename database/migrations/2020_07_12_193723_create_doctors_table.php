@@ -21,6 +21,7 @@ class CreateDoctorsTable extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->enum('title', ['professor', 'lecturer',  'specialist']);
             $table->text('about');
+            $table->float('price', 8,1)->nullnble();
             $table->timestamps();
             $table->unsignedBigInteger('specialization_id');
 

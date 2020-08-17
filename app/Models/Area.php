@@ -16,5 +16,9 @@ class Area extends Model
     {
          return $this->hasMany(Center::class);
     }
+    public function clinics()
+    {
+        return $this->hasMany(Clinic::class, 'area_id');
+    }
 
 }

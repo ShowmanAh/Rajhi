@@ -43,7 +43,7 @@
 
 
                                 <div class="card-content collapse show">
-                                    <div class="card-body card-dashboard">
+                                    <div class="card-body  table-responsive">
                                         <table
                                             class="table display nowrap table-striped table-bordered ">
                                             <thead>
@@ -51,9 +51,15 @@
                                                 <th>
                                                     #
                                                 </th>
-                                                <th> @lang('site.name')</th>
-
-                                                <th>@lang('site.actions')</th>
+                                                <th class="text-center"> @lang('site.name')</th>
+                                                <th class="text-center"> @lang('site.center')</th>
+                                                <th class="text-center"> @lang('site.city')</th>
+                                                <th class="text-center"> @lang('site.area')</th>
+                                                <th class="text-center"> @lang('site.phone')</th>
+                                                <th class="text-center"> @lang('site.address')</th>
+                                                <th class="text-center"> @lang('site.waiting_time')</th>
+                                                <th class="text-center"> @lang('site.doctor')</th>
+                                                <th class="text-center">@lang('site.actions')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -64,7 +70,17 @@
 
                                                   <td>{{ $index+1 }}</td>
                                                   <td>{{ $clinic->name}}</td>
-
+                                                  <td>
+                                                      {{ $clinic->type==1 && $clinic->centers ? $clinic->centers->name : ''}}
+                                                    </td>
+                                                    <td>{{ $clinic->areas ? $clinic->areas->city->name : ''}}</td>
+                                                    <td>{{ $clinic->areas ? $clinic->areas->name : ''}}</td>
+                                                    <td>{{ $clinic->phone}}</td>
+                                                    <td>{{ $clinic->address}}</td>
+                                                    <td>{{ $clinic->waiting_time}} min</td>
+                                                    <td><span class="btn btn-success btn-sm" style="border-radius: 4px;padding: 2px;margin: 5px 0 ;">
+                                                        {{ $clinic->doctors ? $clinic->doctors->name : ''}}
+                                                        </span></td>
                                                   <td>
                                                       <a href="{{ route('admin.clinics.edit', $clinic->id)}}"
                                                         class="btn btn-outline-primary btn-sm box-shadow-3 mr-1 mb-1">@lang('site.edit')</a>

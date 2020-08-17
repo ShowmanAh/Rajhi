@@ -64,12 +64,141 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.type') </label>
+                                                       {!! Form::select('type', [0 => 'عيادة حرة' , 1 => 'تابعة لمركز'],old('type'), ['class'=>'form-control']) !!}
+                                                        @error('type')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
 
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.center') </label>
+                                                        <select name="center_id" id="center_id" class="form-control">
+                                                         @foreach ($centers as $center)
+                                                            <option value="center_id" {{ old('center_id') == $center->id ? 'selected' : ''}}>{{$center->name}}</option>
+                                                         @endforeach
+                                                        </select>
+                                                        @error('center_id')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.doctor') </label>
+                                                        <select name="doctor_id" id="doctor_id" class="form-control">
+                                                            @foreach ($doctors as $doctor)
+                                                               <option value="doctor_id" {{ old('doctor_id') == $doctor->id ? 'selected' : ''}}>{{$doctor->name}}</option>
+                                                            @endforeach
+                                                           </select>
+                                                            @error('doctor_id')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
 
                                             </div>
 
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.city') </label>
+                                                        <select name="cities[]" id="cities" class="form-control">
+                                                         @foreach ($cities as $city)
+                                                            <option value="city_id" {{ old('city_id') == $city->id ? 'selected' : ''}}>{{$city->name}}</option>
+                                                         @endforeach
+                                                        </select>
+                                                        @error('city_id')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
 
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.area') </label>
+                                                        <select name="area_id[]" id="area_id" class="form-control">
+
+                                                           </select>
+                                                            @error('area_id')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.phone') </label>
+                                                       <input type="text" name="phone" class="form-control">
+                                                        @error('phone')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.waiting_time') </label>
+                                                        <input type="number" name="waiting_time" class="form-control">
+                                                            @error('waiting_time')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.latitude') </label>
+                                                       <input type="number" name="latitude" class="form-control" old('latitude')>
+                                                        @error('latitude')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.waiting_time') </label>
+                                                        <input type="number" name="longitude" class="form-control" old('longitude')>
+                                                            @error('longitude')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="projectinput1">@lang('site.address') </label>
+                                                        <textarea name="address" id="address" cols="120" rows="3"></textarea>
+                                                            @error('address')
+                                                        <span class="text-danger">{{ $message}} </span>
+                                                        @enderror
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="la la-check-square-o"></i> @lang('site.save')
                                             </button>
@@ -88,3 +217,10 @@
 
 
 @endsection
+
+@push('script')
+<script  type="text/javascript">
+    $(document).ready(function(){
+      alert('sdf');
+    });
+@endpush
